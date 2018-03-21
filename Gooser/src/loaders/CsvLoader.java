@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import nodes.Node;
 
-public class CsvLoader {
+public class CsvLoader extends Loader {
 	
 	static final String CSV_SEPARATOR = ",";
 	

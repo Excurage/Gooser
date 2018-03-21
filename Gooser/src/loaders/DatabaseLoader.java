@@ -9,7 +9,7 @@ import java.util.List;
 
 import nodes.Node;
 
-public class DatabaseLoader {
+public class DatabaseLoader extends Loader {
 	
 	//"org.gjt.mm.mysql.Driver"
     String myDriver;
@@ -17,17 +17,21 @@ public class DatabaseLoader {
     //"jdbc:mysql://localhost/test"
     String myUrl;
     
+    //"SELECT * FROM users"
+    String sqlQuery;
+    
     List<Node> nodeList;
     int nextNodeID = 1;
     
-    public DatabaseLoader(String inDriver, String inUrl)
+    public DatabaseLoader(String inDriver, String inUrl, String inSqlQuery)
     {
     	myDriver = inDriver;
     	myUrl = inUrl;
     	nodeList = new ArrayList<Node>();
+    	sqlQuery = inSqlQuery;
     }
     
-    public void LoadData(String inSqlQuery)
+    public void LoadData()
     {
     	
     	String tempName = "";
@@ -37,13 +41,11 @@ public class DatabaseLoader {
     	
     	try
     	{
-	    	myDriver = "org.gjt.mm.mysql.Driver";
-	        myUrl = "jdbc:mysql://localhost/test";
 	        Class.forName(myDriver);
 	        Connection conn = DriverManager.getConnection(myUrl, "root", "");
 	        
 	        Statement st = conn.createStatement();
-	        ResultSet rs = st.executeQuery(inSqlQuery);
+	        ResultSet rs = st.executeQuery(sqlQuery);
 	        
 	        while (rs.next())
 	        {
@@ -64,6 +66,11 @@ public class DatabaseLoader {
     		System.out.println(e.getMessage());
     	}
     	
+    }
+    
+    public void SetSqlQuery(String inSqlQuery)
+    {
+    	sqlQuery = inSqlQuery;
     }
 	
 }

@@ -1,11 +1,15 @@
 package display;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import loaders.Loader;
+
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,6 +18,9 @@ import javax.swing.JLabel;
 
 public class GooserMainDisplay extends JFrame {
 
+	Loader gooserLoader;
+	GooserLoadDialogue gooserLoadDialog;
+	
 	private JPanel contentPane;
 	public JPanel panelFunction;
 	public JButton btnQuit;
@@ -75,6 +82,12 @@ public class GooserMainDisplay extends JFrame {
 		panelFunction.add(btnLoad);
 		
 		btnDraw = new JButton("Draw");
+		btnDraw.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				do_btnDraw_mouseReleased(e);
+			}
+		});
 		btnDraw.setBounds(0, 108, 99, 23);
 		panelFunction.add(btnDraw);
 		
@@ -92,6 +105,23 @@ public class GooserMainDisplay extends JFrame {
 		System.exit(0);
 	}
 	protected void do_btnLoad_mouseReleased(MouseEvent e) {
+		gooserLoadDialog = new GooserLoadDialogue();
+		gooserLoadDialog.setModalityType(Dialog.ModalityType.DOCUMENT_MODAL);
+		gooserLoadDialog.setModal(true);
+		gooserLoadDialog.setVisible(true);
+		if(gooserLoadDialog.isOK)
+		{
+			GetLoader();
+		}		
+		gooserLoadDialog.dispose();
+	}
+	protected void do_btnDraw_mouseReleased(MouseEvent e) {
 		
 	}
+	
+	public void GetLoader()
+	{
+		gooserLoader = gooserLoadDialog.CreateLoader();
+	}
+	
 }
