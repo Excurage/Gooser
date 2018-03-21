@@ -1,59 +1,32 @@
 package nodes;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Node {
 	
-	private static int nextNodeID = 0;
-	
-	private String nodeName;
-	private String nodeValue;
+	private Map<String, String> mapNameValues;
 	private int nodeID;
 	
-	public Node(){
-		nodeName = "";
-		nodeValue = "";
-		nodeID = getNextNodeID();
+	public Node(int inNodeID){
+		mapNameValues = new HashMap<String, String>();
+		nodeID = inNodeID;
 	}
 	
-	public Node(String inNodeName, String inNodeValue){
-		nodeName = inNodeName;
-		nodeValue = inNodeValue;
-		nodeID = getNextNodeID();
+	public Map<String, String> GetMapNameValues()
+	{
+		return mapNameValues;
 	}
 	
-	public String getNodeName() {
-		return nodeName;
-	}
-	
-	public void setNodeName(String newNodeName) {
-		nodeName = newNodeName;
-	}
-	
-	public String getNodeValue() {
-		return nodeValue;
-	}
-	
-	public void setNodeValue(String newNodeValue) {
-		nodeValue = newNodeValue;
-	}
-	
-	public int getNextNodeID() {
-		if(nextNodeID < Integer.MAX_VALUE)
-		{
-			nextNodeID++;
-			return nextNodeID;
-		}
-		else 
-		{
-			return 0;
-		}
-	}
-	
-	public void resetNextNodeID(){
-		nextNodeID = 0;
-	}
-	
-	public int getNodeID() {
+	public int GetNodeID()
+	{
 		return nodeID;
 	}
+	
+	public void Add(String inName, String inValue)
+	{
+		mapNameValues.put(inName, inValue);
+	}
+
 	
 }

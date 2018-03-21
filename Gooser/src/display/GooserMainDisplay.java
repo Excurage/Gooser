@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class GooserMainDisplay extends JFrame {
 
@@ -16,6 +18,9 @@ public class GooserMainDisplay extends JFrame {
 	public JPanel panelFunction;
 	public JButton btnQuit;
 	public JButton btnLoad;
+	public JButton btnDraw;
+	public JTextField textLevels;
+	public JLabel lblLevels;
 
 	/**
 	 * Launch the application.
@@ -56,7 +61,7 @@ public class GooserMainDisplay extends JFrame {
 				do_btnQuit_mouseReleased(e);
 			}
 		});
-		btnQuit.setBounds(0, 532, 89, 23);
+		btnQuit.setBounds(0, 532, 99, 23);
 		panelFunction.add(btnQuit);
 		
 		btnLoad = new JButton("Load Data");
@@ -66,8 +71,21 @@ public class GooserMainDisplay extends JFrame {
 				do_btnLoad_mouseReleased(e);
 			}
 		});
-		btnLoad.setBounds(0, 11, 89, 23);
+		btnLoad.setBounds(0, 11, 99, 23);
 		panelFunction.add(btnLoad);
+		
+		btnDraw = new JButton("Draw");
+		btnDraw.setBounds(0, 108, 99, 23);
+		panelFunction.add(btnDraw);
+		
+		textLevels = new JTextField();
+		textLevels.setBounds(55, 142, 44, 20);
+		panelFunction.add(textLevels);
+		textLevels.setColumns(10);
+		
+		lblLevels = new JLabel("Levels");
+		lblLevels.setBounds(10, 145, 40, 14);
+		panelFunction.add(lblLevels);
 	}
 
 	protected void do_btnQuit_mouseReleased(MouseEvent e) {
