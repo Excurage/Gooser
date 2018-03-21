@@ -18,6 +18,7 @@ public class DatabaseLoader {
     String myUrl;
     
     List<Node> nodeList;
+    int nextNodeID = 1;
     
     public DatabaseLoader(String inDriver, String inUrl)
     {
@@ -28,6 +29,12 @@ public class DatabaseLoader {
     
     public void LoadData(String inSqlQuery)
     {
+    	
+    	String tempName = "";
+    	String tempValue = "";
+    	Node tempNode;
+    	int idx = 0;
+    	
     	try
     	{
 	    	myDriver = "org.gjt.mm.mysql.Driver";
@@ -40,7 +47,15 @@ public class DatabaseLoader {
 	        
 	        while (rs.next())
 	        {
-	        	String s = rs.getString("test_data");
+	        	tempNode = new Node(nextNodeID);
+	        	for(idx = 0; idx < rs.getMetaData().getColumnCount(); idx++)
+	        	{
+	        		tempName = rs.getMetaData().getColumnName(idx);
+	        		tempValue = rs.getString(idx);
+	        		tempNode.Add(tempName, tempValue);
+	        	}
+	        	nodeList.add(tempNode);
+	        	nextNodeID++;
 	        }
 	        st.close();
     	}
