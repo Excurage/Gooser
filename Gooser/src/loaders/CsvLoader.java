@@ -66,7 +66,10 @@ public class CsvLoader extends Loader {
 		}
 	}
 	
-	
+	public List<Node> getNodeList()
+	{
+		return nodeList;
+	}
 	
 	
 	

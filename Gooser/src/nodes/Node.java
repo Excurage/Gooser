@@ -28,5 +28,18 @@ public class Node {
 		mapNameValues.put(inName, inValue);
 	}
 
+	public String ToString()
+	{
+		String retStr = "===START NODE" + nodeID + "===";
+		int idx = 0;
+		String tempValue = "";
+		for(String key : mapNameValues.keySet())
+		{
+			tempValue = mapNameValues.get(key);
+			retStr = retStr + key + " : " + tempValue + "\n";
+		}
+		retStr = retStr + "===END NODE" + nodeID + "===\n";
+		return retStr;
+	}
 	
 }

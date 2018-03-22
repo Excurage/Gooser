@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import loaders.Loader;
+import nodes.Node;
 
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
@@ -116,12 +117,19 @@ public class GooserMainDisplay extends JFrame {
 		gooserLoadDialog.dispose();
 	}
 	protected void do_btnDraw_mouseReleased(MouseEvent e) {
-		
+		if(gooserLoader.getNodeList() != null)
+		{
+			for(Node tempNode : gooserLoader.getNodeList())
+			{
+				System.out.println(tempNode.ToString());
+			}
+		}
 	}
 	
 	public void GetLoader()
 	{
 		gooserLoader = gooserLoadDialog.CreateLoader();
+		gooserLoader.LoadData();
 	}
 	
 }

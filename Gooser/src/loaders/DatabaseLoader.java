@@ -72,5 +72,10 @@ public class DatabaseLoader extends Loader {
     {
     	sqlQuery = inSqlQuery;
     }
+    
+	public List<Node> getNodeList()
+	{
+		return nodeList;
+	}
 	
 }

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import loaders.CsvLoader;
+import loaders.DatabaseLoader;
 import loaders.Loader;
 
 import javax.swing.JComboBox;
@@ -31,6 +32,12 @@ public class GooserLoadDialogue extends JDialog {
 	public JLabel lblLoadSource;
 	public JLabel lblFileLocation;
 	public JButton btnBrowse;
+	public JLabel lblDriver;
+	public JLabel lblUrl;
+	public JLabel lblTable;
+	public JTextField txtURL;
+	public JTextField txtTable;
+	public JLabel lblDriverValue;
 
 	/**
 	 * Launch the application.
@@ -89,6 +96,38 @@ public class GooserLoadDialogue extends JDialog {
 			contentPanel.add(btnBrowse);
 		}
 		{
+			lblDriver = new JLabel("Driver");
+			lblDriver.setBounds(10, 98, 46, 14);
+			contentPanel.add(lblDriver);
+		}
+		{
+			lblUrl = new JLabel("URL");
+			lblUrl.setBounds(10, 123, 46, 14);
+			contentPanel.add(lblUrl);
+		}
+		{
+			lblTable = new JLabel("Table");
+			lblTable.setBounds(10, 148, 46, 14);
+			contentPanel.add(lblTable);
+		}
+		{
+			txtURL = new JTextField();
+			txtURL.setText("jdbc:mysql://localhost/test");
+			txtURL.setBounds(95, 120, 167, 20);
+			contentPanel.add(txtURL);
+			txtURL.setColumns(10);
+		}
+		{
+			txtTable = new JTextField();
+			txtTable.setBounds(95, 145, 86, 20);
+			contentPanel.add(txtTable);
+			txtTable.setColumns(10);
+		}
+		
+		lblDriverValue = new JLabel("org.gjt.mm.mysql.Driver");
+		lblDriverValue.setBounds(95, 98, 167, 14);
+		contentPanel.add(lblDriverValue);
+		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -116,11 +155,34 @@ public class GooserLoadDialogue extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		
+		lblDriver.setVisible(false);
+		lblUrl.setVisible(false);
+		lblTable.setVisible(false);
+		lblDriverValue.setVisible(false);
+		txtURL.setVisible(false);
+		txtTable.setVisible(false);
+		
 	}
 	
 	public Loader CreateLoader()
 	{
-		return new CsvLoader("test");
+		
+		String sourceStr = comboLoadSource.getSelectedItem().toString();
+		Loader newLoader;
+		
+		if(sourceStr == "Database")
+		{
+			newLoader = new DatabaseLoader(lblDriverValue.getText(),
+					                       txtURL.getText(),
+					                       "SELECT * FROM " + txtTable.getText());
+		}
+		else//(sourceStr == "CSV")
+		{
+			newLoader = new CsvLoader(txtFileLocation.getText());
+		}
+		
+		return newLoader;
 	}
 
 	protected void do_okButton_mouseReleased(MouseEvent e) {
@@ -128,7 +190,11 @@ public class GooserLoadDialogue extends JDialog {
 		String sourceStr = comboLoadSource.getSelectedItem().toString();
 		if(sourceStr == "Database")
 		{
-			
+			if(txtURL.getText() != "" &&
+			   txtTable.getText() != "");
+			{
+				isOK = true;
+			}
 		}
 		else if(sourceStr == "CSV")
 		{
@@ -155,6 +221,14 @@ public class GooserLoadDialogue extends JDialog {
 		String comboTxt = comboLoadSource.getSelectedItem().toString();
 		if(comboTxt == "Database")
 		{
+			
+			lblDriver.setVisible(true);
+			lblUrl.setVisible(true);
+			lblTable.setVisible(true);
+			lblDriverValue.setVisible(true);
+			txtURL.setVisible(true);
+			txtTable.setVisible(true);
+			
 			txtFileLocation.setVisible(false);
 			lblFileLocation.setVisible(false);
 			btnBrowse.setVisible(false);
@@ -164,6 +238,13 @@ public class GooserLoadDialogue extends JDialog {
 			txtFileLocation.setVisible(true);
 			lblFileLocation.setVisible(true);
 			btnBrowse.setVisible(true);
+			
+			lblDriver.setVisible(false);
+			lblUrl.setVisible(false);
+			lblTable.setVisible(false);
+			lblDriverValue.setVisible(false);
+			txtURL.setVisible(false);
+			txtTable.setVisible(false);
 		}
 	}
 }
