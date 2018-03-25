@@ -31,7 +31,7 @@ public class GooserMainDisplay extends JFrame {
 	public JButton btnDraw;
 	public JTextField textLevels;
 	public JLabel lblLevels;
-	public JPanel drawPanel;
+	public NodePanel drawPanel;
 
 	/**
 	 * Launch the application.
@@ -107,7 +107,7 @@ public class GooserMainDisplay extends JFrame {
 		lblLevels.setBounds(10, 145, 40, 14);
 		panelFunction.add(lblLevels);
 		
-		drawPanel = new JPanel();
+		drawPanel = new NodePanel();
 		drawPanel.setBounds(114, 5, 828, 516);
 		contentPane.add(drawPanel);
 	}
@@ -130,7 +130,8 @@ public class GooserMainDisplay extends JFrame {
 		if(gooserLoader.getNodeList() != null)
 		{
 			PrintNodes();
-			//DrawNodes();
+			drawPanel.DrawNodes(gooserLoader.getNodeList());
+			drawPanel.revalidate();
 		}
 	}
 	
@@ -150,4 +151,5 @@ public class GooserMainDisplay extends JFrame {
 			}
 		}
 	}
+
 }
