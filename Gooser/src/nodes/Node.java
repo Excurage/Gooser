@@ -30,7 +30,7 @@ public class Node {
 
 	public String ToString()
 	{
-		String retStr = "===START NODE" + nodeID + "===";
+		String retStr = "===START NODE " + nodeID + "===\n";
 		int idx = 0;
 		String tempValue = "";
 		for(String key : mapNameValues.keySet())
@@ -38,7 +38,7 @@ public class Node {
 			tempValue = mapNameValues.get(key);
 			retStr = retStr + key + " : " + tempValue + "\n";
 		}
-		retStr = retStr + "===END NODE" + nodeID + "===\n";
+		retStr = retStr + "===END NODE " + nodeID + "===\n";
 		return retStr;
 	}
 	

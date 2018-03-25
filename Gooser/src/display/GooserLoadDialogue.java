@@ -6,8 +6,10 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import loaders.CsvLoader;
 import loaders.DatabaseLoader;
@@ -92,6 +94,12 @@ public class GooserLoadDialogue extends JDialog {
 		}
 		{
 			btnBrowse = new JButton("Browse");
+			btnBrowse.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					do_btnBrowse_mouseReleased(arg0);
+				}
+			});
 			btnBrowse.setBounds(95, 62, 89, 23);
 			contentPanel.add(btnBrowse);
 		}
@@ -245,6 +253,18 @@ public class GooserLoadDialogue extends JDialog {
 			lblDriverValue.setVisible(false);
 			txtURL.setVisible(false);
 			txtTable.setVisible(false);
+		}
+	}
+	protected void do_btnBrowse_mouseReleased(MouseEvent arg0) {
+		int retval = JFileChooser.CANCEL_OPTION;
+		JFileChooser fileChooser = new JFileChooser();
+		FileNameExtensionFilter extFilter = new FileNameExtensionFilter("CSV Files", "csv");
+		fileChooser.setFileFilter(extFilter);
+		fileChooser.setAcceptAllFileFilterUsed(false);
+		retval = fileChooser.showOpenDialog(this);
+		if(retval == JFileChooser.APPROVE_OPTION)
+		{
+			txtFileLocation.setText(fileChooser.getSelectedFile().getPath());
 		}
 	}
 }

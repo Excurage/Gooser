@@ -22,6 +22,8 @@ public class GooserMainDisplay extends JFrame {
 	Loader gooserLoader;
 	GooserLoadDialogue gooserLoadDialog;
 	
+	private static boolean DEBUG = false; 
+	
 	private JPanel contentPane;
 	public JPanel panelFunction;
 	public JButton btnQuit;
@@ -29,6 +31,7 @@ public class GooserMainDisplay extends JFrame {
 	public JButton btnDraw;
 	public JTextField textLevels;
 	public JLabel lblLevels;
+	public JPanel drawPanel;
 
 	/**
 	 * Launch the application.
@@ -50,6 +53,9 @@ public class GooserMainDisplay extends JFrame {
 	 * Create the frame.
 	 */
 	public GooserMainDisplay() {
+		initComponents();
+	}
+	private void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 968, 615);
 		contentPane = new JPanel();
@@ -100,6 +106,10 @@ public class GooserMainDisplay extends JFrame {
 		lblLevels = new JLabel("Levels");
 		lblLevels.setBounds(10, 145, 40, 14);
 		panelFunction.add(lblLevels);
+		
+		drawPanel = new JPanel();
+		drawPanel.setBounds(114, 5, 828, 516);
+		contentPane.add(drawPanel);
 	}
 
 	protected void do_btnQuit_mouseReleased(MouseEvent e) {
@@ -119,10 +129,8 @@ public class GooserMainDisplay extends JFrame {
 	protected void do_btnDraw_mouseReleased(MouseEvent e) {
 		if(gooserLoader.getNodeList() != null)
 		{
-			for(Node tempNode : gooserLoader.getNodeList())
-			{
-				System.out.println(tempNode.ToString());
-			}
+			PrintNodes();
+			//DrawNodes();
 		}
 	}
 	
@@ -132,4 +140,14 @@ public class GooserMainDisplay extends JFrame {
 		gooserLoader.LoadData();
 	}
 	
+	public void PrintNodes()
+	{
+		if(gooserLoader.getNodeList() != null)
+		{
+			for(Node tempNode : gooserLoader.getNodeList())
+			{
+				System.out.println(tempNode.ToString());
+			}
+		}
+	}
 }
