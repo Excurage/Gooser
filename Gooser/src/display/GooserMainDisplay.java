@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import loaders.Loader;
+import nodes.Graph;
 import nodes.Node;
 
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ public class GooserMainDisplay extends JFrame {
 
 	Loader gooserLoader;
 	GooserLoadDialogue gooserLoadDialog;
+	Graph gooserGraph;
 	
 	private static boolean DEBUG = false; 
 	
@@ -54,6 +56,7 @@ public class GooserMainDisplay extends JFrame {
 	 */
 	public GooserMainDisplay() {
 		initComponents();
+		btnDraw.setEnabled(false);
 	}
 	private void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -123,6 +126,8 @@ public class GooserMainDisplay extends JFrame {
 		if(gooserLoadDialog.isOK)
 		{
 			GetLoader();
+			CreateGraph();
+			btnDraw.setEnabled(true);
 		}		
 		gooserLoadDialog.dispose();
 	}
@@ -130,7 +135,7 @@ public class GooserMainDisplay extends JFrame {
 		if(gooserLoader.getNodeList() != null)
 		{
 			PrintNodes();
-			drawPanel.DrawNodes(gooserLoader.getNodeList());
+			drawPanel.DrawNodes(gooserLoader.getNodeList(), gooserGraph);
 			drawPanel.revalidate();
 		}
 	}
@@ -150,6 +155,11 @@ public class GooserMainDisplay extends JFrame {
 				System.out.println(tempNode.ToString());
 			}
 		}
+	}
+	
+	public void CreateGraph()
+	{
+		gooserGraph = new Graph(gooserLoader.getNodeList());
 	}
 
 }

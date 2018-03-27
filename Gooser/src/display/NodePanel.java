@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import nodes.Graph;
 import nodes.Node;
 
 public class NodePanel extends JPanel {
@@ -65,7 +66,7 @@ public class NodePanel extends JPanel {
         
     }
 	
-	public void DrawNodes(List<Node> inNodeList)
+	public void DrawNodes(List<Node> inNodeList, Graph inGraph)
 	{
 		nodeList = inNodeList;
 		shapeList = new ArrayList<Shape>();
